@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:wireguard_flutter/repository/models.dart';
 import 'package:wireguard_flutter/screens/server_list_page.dart';
 import 'package:wireguard_flutter/utils/public_ip.dart';
+import 'package:wireguard_flutter/log.dart';
 
+import '../ui/common/texts.dart';
+import '../ui/ui_constants.dart';
 import 'shared_widgets/server_list_widget.dart';
 
 const initName = 'VPNOCHKA';
@@ -159,6 +163,10 @@ class _HomePageState extends State<HomePage> {
                                         fontWeight: FontWeight.w600),
                               ));
                             }),
+                        SizedBox(height: 8),
+                        Center(
+                          child: _statsWidget(_stats),
+                        ),
                         Spacer(),
                         Center(
                           child: InkWell(
@@ -265,7 +273,7 @@ class _HomePageState extends State<HomePage> {
                                 .copyWith(color: Colors.white),
                           ),
                         ),
-                        SizedBox(height: 35),
+                        SizedBox(height: 35)
                       ],
                     )),
               ],
@@ -345,5 +353,66 @@ class _HomePageState extends State<HomePage> {
       ),
       backgroundColor: Colors.red[400],
     ));
+  }
+  Widget _statsWidget(Stats? stats) {
+    return Container(
+      padding: AppPadding.horizontalSmall,
+      //height: 60,
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                const Vertical.micro(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Texts(
+                      'Upload',
+                      textSize: AppSize.fontSmall,
+                      color: Colors.black38,
+                      height: 1.5,
+                    ),
+                  ],
+                ),
+                Texts.semiBold(
+                    _formatBytes(stats?.totalUpload.toInt() ?? 0, 0)),
+                const Vertical.medium(),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                const Vertical.micro(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Texts(
+                      'Download',
+                      textSize: AppSize.fontSmall,
+                      color: Colors.black38,
+                      height: 1.5,
+                    ),
+                  ],
+                ),
+                Texts.semiBold(
+                    _formatBytes(stats?.totalDownload.toInt() ?? 0, 0)),
+                const Vertical.medium(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatBytes(int bytes, int decimals) {
+    if (bytes <= 0) return "0 B";
+    const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    var i = (log(bytes) / log(1024)).floor();
+    return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) +
+        ' ' +
+        suffixes[i];
   }
 }
