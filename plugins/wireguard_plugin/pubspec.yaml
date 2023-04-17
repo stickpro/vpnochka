@@ -28,10 +28,10 @@ flutter:
   plugin:
     platforms:
       android:
-        package: pro.tark.wireguard_plugin
+        package: stick.pro.wireguard_plugin
         pluginClass: WireguardPlugin
       ios:
-        package: pro.tark.wireguard_plugin
+        package: stick.pro.wireguard_plugin
         pluginClass: WireguardPlugin
 
   # To add assets to your plugin package§, add an assets section, like this:

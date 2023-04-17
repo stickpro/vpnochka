@@ -1,4 +1,4 @@
-package pro.tark.wireguard_plugin_example
+package stick.pro.wireguard_plugin_example
 
 import io.flutter.embedding.android.FlutterActivity
 

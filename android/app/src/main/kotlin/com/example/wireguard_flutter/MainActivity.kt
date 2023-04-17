@@ -17,7 +17,7 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
-import pro.tark.wireguard_plugin.WireguardPlugin
+import stick.pro.wireguard_plugin.WireguardPlugin
 import kotlinx.coroutines.*
 import java.util.*
 

@@ -1,4 +1,4 @@
-group 'pro.tark.wireguard_plugin'
+group 'stick.pro.wireguard_plugin'
 version '1.0-SNAPSHOT'
 
 buildscript {
